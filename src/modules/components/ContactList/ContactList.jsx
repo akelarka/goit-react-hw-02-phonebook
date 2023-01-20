@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Filter } from '../Filter/Filter';
-import { ContactListItem } from './ContactListItem/ContactListItem';
+import Filter from '../Filter/Filter';
+import ContactListItem from './ContactListItem/ContactListItem';
 import {  PhoneBookList, Contact } from './ContactList.styled';
 
 const ContactList = ({ contacts, deleteContact, findContact }) => {

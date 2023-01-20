@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types';
-import { ContactName, ContactNumber, Button } from './ContactListItem.styled';
+import Button from '../../../../shared/components/Button/Button';
+import { ContactName, ContactNumber } from './ContactListItem.styled';
 
-export const ContactListItem = ({ id, name, number, deleteContact }) => {
+const ContactListItem = ({ id, name, number, deleteContact }) => {
     return (
         <li>
             <ContactName>{name}</ContactName>
             <ContactNumber>{number}</ContactNumber>
             <Button
-                className="button buttonList"
-                type="button"
+                type={"button"}
                 onClick={() => deleteContact(id)}
-            >
-                Delete
-            </Button>
+                text={"Delete"}
+            />
         </li>
     )
 };
+
+export default ContactListItem;
 
 ContactListItem.propType = {
     id: PropTypes.string.isRequired,

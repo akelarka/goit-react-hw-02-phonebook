@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { ContactForm } from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-
-
-
-
+import { ContactForm } from './modules/components/ContactForm/ContactForm';
+import ContactList from './modules/components/ContactList/ContactList';
 
 export class App extends Component {
   state = {
@@ -38,7 +34,14 @@ export class App extends Component {
       if (contact.name === name.value) {
         alert(`${name.value} is already in contacts`);
         return (isAdded = true);
-      }; return isAdded
+      }; 
+      if (number.value === '') {
+        return (isAdded = true);
+      };
+      if (name.value === '') {
+        return (isAdded = true);
+      };
+      return isAdded
     });
 
     e.currentTarget.reset();
@@ -74,11 +77,11 @@ export class App extends Component {
   render() {
     return (
       <>
-        <ContactForm addContact={this.addContact} />
+        <ContactForm addContact = {this.addContact}/>
         <ContactList
-          findContact={this.findContact}
-          contacts={this.renderContacts()}
-          deleteContact={this.deleteContact}
+          findContact = {this.findContact}
+          contacts = {this.renderContacts()}
+          deleteContact = {this.deleteContact}
         />
       </>
     );

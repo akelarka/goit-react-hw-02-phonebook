@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types';
+import InputName from '../../../shared/components/InputName/InputName';
 import { FilterWrapper } from './Filter.styled';
 
-export const Filter = ({ findContact }) => {
+const Filter = ({ findContact }) => {
     return (
         <FilterWrapper>
             <h2>Contacts</h2>
             <label>
-                <p className="inputName">Find contacts by name</p>
+                <InputName text={"Find contacts by name"}/>
                 <input type="text" onChange={findContact} />
             </label>
         </FilterWrapper>
     );
 };
+
+export default Filter;
 
 Filter.propType = {
     findContact: PropTypes.func.isRequired,
