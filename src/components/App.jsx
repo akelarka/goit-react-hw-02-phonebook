@@ -73,15 +73,14 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <>
         <ContactForm addContact={this.addContact} />
         <ContactList
           findContact={this.findContact}
           contacts={this.renderContacts()}
           deleteContact={this.deleteContact}
         />
-      </div>
+      </>
     );
   }
 }

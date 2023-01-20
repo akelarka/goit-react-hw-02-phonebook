@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Form, Button, Label, InputName } from './ContactForm.styled';
+import { Title, Form, Button, Label, InputName } from './ContactForm.styled';
 
 export class ContactForm extends Component {
 
@@ -25,6 +25,7 @@ export class ContactForm extends Component {
             const { name, number } = this.state;
         return (
             <>
+                <Title>Phonebook</Title>
                 <Form onSubmit={addContact}>
                 <label htmlFor="name">
                     <InputName>Name</InputName>
