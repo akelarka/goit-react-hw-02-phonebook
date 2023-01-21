@@ -1,19 +1,58 @@
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import Button from '../../../shared/components/Button/Button';
 import InputName from '../../../shared/components/InputName/InputName';
 import { Title, Form, Label } from './ContactForm.styled';
 
-export class ContactForm extends Component {
+class ContactForm extends Component {
 
     static defaultProps = {
-        addContact: PropTypes.func.isRequired,
+        onSubmit: PropTypes.func.isRequired,
     };
     
     state = {
         name: '',
         number: ''
     }
+    
+    reset = () => {
+        this.setState({name: '', number: ''})
+    }
+
+    addContact = e => {
+        e.preventDefault();
+        const { contacts }= this.props;
+
+        const {
+            elements: { name, number },
+        } = e.currentTarget;
+
+        let addedContact = {
+            name: name.value,
+            number: number.value,
+            id: nanoid(),
+        };
+
+        let isAdded = false;
+
+        contacts.map(contact => {
+            if (contact.name === name.value) {
+            alert(`${name.value} is already in contacts`);
+            return (isAdded = true);
+            }; 
+            if (number.value === '') {
+            return (isAdded = true);
+            };
+            if (name.value === '') {
+            return (isAdded = true);
+            };
+            return isAdded
+        });
+
+        this.props.onSubmit(addedContact);
+        this.reset(); 
+        };
 
     handleChange = e => {
         this.setState({
@@ -22,12 +61,11 @@ export class ContactForm extends Component {
     };
 
     render() {
-            const { addContact } = this.props;
             const { name, number } = this.state;
         return (
             <>
                 <Title>Phonebook</Title>
-                <Form onSubmit={addContact}>
+                <Form onSubmit={this.addContact}>
                 <Label htmlFor="name">
                     <InputName text={"Name"}/>
                     <input
@@ -64,3 +102,13 @@ export class ContactForm extends Component {
 }
 
 export default ContactForm;
+
+ContactForm.propType = {
+    contacts: PropTypes.arrayOf(
+        PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        number: PropTypes.string.isRequired,
+        }).isRequired
+    ),
+};

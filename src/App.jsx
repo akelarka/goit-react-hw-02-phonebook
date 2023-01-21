@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { ContactForm } from './modules/components/ContactForm/ContactForm';
+import ContactForm from './modules/components/ContactForm/ContactForm';
 import ContactList from './modules/components/ContactList/ContactList';
 
 export class App extends Component {
@@ -14,44 +14,11 @@ export class App extends Component {
     filter: '',
   };
 
-  addContact = e => {
-    e.preventDefault();
-    const { contacts } = this.state;
-
-    const {
-      elements: { name, number },
-    } = e.currentTarget;
-
-    let addedContact = {
-      name: name.value,
-      number: number.value,
-      id: nanoid(),
-    };
-
-    let isAdded = false;
-
-    contacts.map(contact => {
-      if (contact.name === name.value) {
-        alert(`${name.value} is already in contacts`);
-        return (isAdded = true);
-      }; 
-      if (number.value === '') {
-        return (isAdded = true);
-      };
-      if (name.value === '') {
-        return (isAdded = true);
-      };
-      return isAdded
-    });
-
-    e.currentTarget.reset();
-
-    if (!isAdded) {
-      this.setState(prevState => ({
-        contacts: [addedContact, ...prevState.contacts],
+  formSubmitHundler = addedContact => {
+    this.setState(prevState => ({
+      contacts: [addedContact, ...prevState.contacts],
       }));
-    }
-  };
+  }
 
   findContact = e => {
     this.setState({ filter: e.currentTarget.value });
@@ -77,7 +44,7 @@ export class App extends Component {
   render() {
     return (
       <>
-        <ContactForm addContact = {this.addContact}/>
+        <ContactForm onSubmit={this.formSubmitHundler} contacts={this.state.contacts}/>
         <ContactList
           findContact = {this.findContact}
           contacts = {this.renderContacts()}
