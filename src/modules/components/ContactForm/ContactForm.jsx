@@ -34,23 +34,27 @@ class ContactForm extends Component {
             id: nanoid(),
         };
 
-        let isAdded = false;
+        let isAdded = true;
 
         contacts.map(contact => {
             if (contact.name === name.value) {
             alert(`${name.value} is already in contacts`);
-            return (isAdded = true);
+            return (isAdded = false);
             }; 
-            if (number.value === '') {
-            return (isAdded = true);
+            if (!number.value) {
+            return (isAdded = false);
             };
-            if (name.value === '') {
-            return (isAdded = true);
+            if (!name.value) {
+            return (isAdded = false);
             };
             return isAdded
         });
 
-        this.props.onSubmit(addedContact);
+
+        if (isAdded === true) {
+            this.props.onSubmit(addedContact);
+        }
+
         this.reset(); 
         };
 
